@@ -9,6 +9,9 @@ Frontend is TBD
 
 # AirBnB Backend
 
+## Git Repo Link: https://github.com/xgg0213/project_airbnb/tree/main
+## Render link: https://project-urban-hideaway.onrender.com/
+
 ## Database Schema Design
 
 ![db-schema]
