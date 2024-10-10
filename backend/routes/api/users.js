@@ -40,29 +40,30 @@ const validateSignup = [
 
 // Sign up
 router.post(
-    '/',
-    validateSignup,
-    validateUserExists,
-    async (req, res) => {
-      const { email, password, username, firstName, lastName } = req.body;
-      const hashedPassword = bcrypt.hashSync(password);
- 
-      const user = await User.create({ email, username, firstName, lastName, hashedPassword });
-      const safeUser = {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        username: user.username,
-      };
-  
-      await setTokenCookie(res, safeUser);
-  
-      return res.status(201).json({
-        user: safeUser
-      });
-      
-    }
+  '/',
+  validateSignup,
+  validateUserExists,
+  async (req, res) => {
+    const { email, password, username, firstName, lastName } = req.body;
+    const hashedPassword = bcrypt.hashSync(password);
+
+    const user = await User.create({ email, username, firstName, lastName, hashedPassword });
+    const safeUser = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      username: user.username,
+    };
+
+    await setTokenCookie(res, safeUser);
+
+    // return res.status(201).json({
+    //   user: safeUser
+    // });
+    return res.json(safeUser);
+
+  }
 );
 
 module.exports = router;

@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { thunk } from 'redux-thunk';
+import session from './session';
 
 // Placeholder reducer (replace with your real reducers)
 const placeholderReducer = (state = {}, action) => {
@@ -10,7 +11,7 @@ const placeholderReducer = (state = {}, action) => {
 };
 
 const rootReducer = combineReducers({
-    placeholder: placeholderReducer,  // Add your reducers here
+    session  // Add your reducers here
 });
 
 let enhancer;
