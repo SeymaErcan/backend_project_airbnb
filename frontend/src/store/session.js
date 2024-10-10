@@ -15,6 +15,10 @@ const removeUser = () => ({
 
 // Thunk action for login
 export const login = ({ credential, password }) => async (dispatch) => {
+
+    console.log("Credential:", credential);
+    console.log("Password:", password);
+
     let res = await csrfFetch('/api/session', {
         method: 'POST',
         body: JSON.stringify({ credential, password })  // Fix the typo in "password"

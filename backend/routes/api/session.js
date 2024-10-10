@@ -30,6 +30,9 @@ router.post(
   async (req, res, next) => {
     const { credential, password } = req.body;
 
+    console.log('Received credential:', credential);  // Log the credential
+    console.log('Received password:', password);
+
     const user = await User.unscoped().findOne({
       where: {
         [Op.or]: {
