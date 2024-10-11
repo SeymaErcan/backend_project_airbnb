@@ -30,9 +30,6 @@ router.post(
   async (req, res, next) => {
     const { credential, password } = req.body;
 
-    console.log('Received credential:', credential);  // Log the credential
-    console.log('Received password:', password);
-
     const user = await User.unscoped().findOne({
       where: {
         [Op.or]: {
@@ -48,10 +45,10 @@ router.post(
       err.title = 'Login failed';
       err.errors = { credential: 'The provided credentials were invalid.' };
       // err.message = 'Invalid credentials'
-      return next(err);
-      // return res.status(401).json({
-      //   'message': err.message
-      // })
+      // return next(err);
+      return res.status(401).json({
+        'message': err.message
+      })
     };
 
     const safeUser = {

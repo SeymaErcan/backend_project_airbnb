@@ -17,12 +17,17 @@ const LoginFormPage = () => {
         return dispatch(login(userInfo)).catch(
             async (res) => {
                 const data = await res.json();
-                if (data?.errors) setErrors(data.errors);
+                console.log("Response data from await res.json():", data);
+                if (data?.errors) {
+                    setErrors(data.errors);
+                } else if (data?.message) {
+                    setErrors({ credential: data.message });
+                }
             }
         );
     };
 
-
+    console.log("Current errors state: ", errors);
     return (
         <>
             <h1>Login Page</h1>

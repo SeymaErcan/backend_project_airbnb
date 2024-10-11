@@ -22,8 +22,8 @@ app.use(express.json());
 
 // Security Middleware
 if (!isProduction) {
-    // enable cors only in development
-    app.use(cors());
+  // enable cors only in development
+  app.use(cors());
 }
 
 // helmet helps set a variety of headers to better secure your app
@@ -72,22 +72,23 @@ app.use((err, _req, _res, next) => {
 // Error formatter
 app.use((err, _req, res, _next) => {
   res.status(err.status || 500);
-  // console.error(err);
-  if (err.status===401 || (err.status===403 && err.title === 'Forbidden') 
-      || (err.status===403 && err.title === 'Maximum review images number reached')
-      || (err.status===403 && err.title === 'Booking started')
-      || (err.status===403 && err.title === "Past bookings can't be modified")
-      || (err.status===404 && err.title === "couldn't be found") 
-      || (err.status===500 && err.title === "review exists")) {
+  if (err.status === 401 || (err.status === 403 && err.title === 'Forbidden')
+    || (err.status === 403 && err.title === 'Maximum review images number reached')
+    || (err.status === 403 && err.title === 'Booking started')
+    || (err.status === 403 && err.title === "Past bookings can't be modified")
+    || (err.status === 404 && err.title === "couldn't be found")
+    || (err.status === 500 && err.title === "review exists")) {
     res.json({
       message: err.message
     })
-  } else {res.json({
-    //title: err.title || 'Server Error',
-    message: err.message,
-    errors: err.errors,
-    // stack: isProduction ? null : err.stack
-  })}
+  } else {
+    res.json({
+      //title: err.title || 'Server Error',
+      message: err.message,
+      errors: err.errors,
+      // stack: isProduction ? null : err.stack
+    })
+  }
   ;
 });
 
