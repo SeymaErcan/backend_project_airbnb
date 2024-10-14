@@ -1,12 +1,17 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { login } from "../../store/session"
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 const LoginFormPage = () => {
     const dispatch = useDispatch();
+    const currUser = useSelector(state => state.session.user);
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({})
+
+    if (currUser) return <Navigate to='/' replace={true}></Navigate>
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -14,17 +19,19 @@ const LoginFormPage = () => {
             credential,
             password
         };
-        return dispatch(login(userInfo)).catch(
-            async (res) => {
+        return dispatch(login(userInfo))
+            .catch(async (res) => {
                 const data = await res.json();
                 console.log("Response data from await res.json():", data);
+
                 if (data?.errors) {
-                    setErrors(data.errors);
+                    setErrors(data.errors);  // Handle field-specific errors
                 } else if (data?.message) {
-                    setErrors({ credential: data.message });
+                    setErrors({ credential: data.message });  // Handle general message
+                } else {
+                    setErrors({ credential: 'An unexpected error occurred. Please try again.' });
                 }
-            }
-        );
+            });
     };
 
     console.log("Current errors state: ", errors);
@@ -41,7 +48,7 @@ const LoginFormPage = () => {
                 />
                 <label>Password: </label>
                 <input
-                    type="text"
+                    type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     required

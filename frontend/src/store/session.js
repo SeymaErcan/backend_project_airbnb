@@ -9,7 +9,7 @@ const addUser = (payload) => ({
     payload
 });
 
-const removeUser = () => ({
+export const removeUser = () => ({
     type: REMOVE_USER
 })
 
@@ -28,6 +28,32 @@ export const login = ({ credential, password }) => async (dispatch) => {
         return res;
     }
 };
+
+
+export const restoreUser = () => async dispatch => {
+    let res = await csrfFetch('/api/session')
+    if (res.ok) {
+        res = await res.json()
+        dispatch(addUser(res))
+        return res
+    }
+}
+
+
+export const signUp = ({ email, username, password }) => async (dispatch) => {
+
+    let res = await csrfFetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify({ email, username, password })  // Fix the typo in "password"
+    });
+
+    if (res.ok) {
+        res = await res.json();
+        dispatch(addUser(res));  // Fix the case in "addUser"
+        return res;
+    }
+};
+
 
 // Initial state
 const initialState = { user: null };
