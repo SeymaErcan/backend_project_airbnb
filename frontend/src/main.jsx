@@ -6,9 +6,7 @@ import App from './App';
 import './index.css';
 import configureStore from './store';
 import * as sessionActions from './store/session';
-
-
-
+import { Modal, ModalProvider } from './context/Modal';
 
 // If not in production, restore CSRF and expose csrfFetch and store on window for debugging
 // <-- ADD THIS LINE
@@ -25,8 +23,10 @@ if (import.meta.env.MODE !== "production") {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ModalProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ModalProvider>
   </React.StrictMode>
 );

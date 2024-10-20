@@ -18,4 +18,14 @@ module.exports = {
     ],
     'react/prop-types': 'off'
   },
+  overrides: [
+    {
+      files: [
+        "src/context/*.jsx" // Only target files in the context folder
+      ],
+      rules: {
+        'react-refresh/only-export-components': 'off', // Turn off the rule for these files
+      }
+    }
+  ],
 }

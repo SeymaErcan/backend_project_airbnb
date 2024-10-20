@@ -1,0 +1,178 @@
+/* ManageSpots.css */
+
+.manage-spots-page-container {
+    max-width: 1200px;
+    /* Max width for the page */
+    margin: 0 auto;
+    /* Center the container */
+    padding: 20px;
+    /* Padding around the page */
+    background-color: #f9f9f9;
+    /* Light background color */
+}
+
+.manage-spots-header {
+    display: flex;
+    /* Flexbox for header layout */
+    justify-content: space-between;
+    /* Space between elements */
+    align-items: center;
+    /* Center items vertically */
+    margin-bottom: 20px;
+    /* Space below header */
+}
+
+.manage-spots-header h1 {
+    font-size: 2rem;
+    /* Larger font size for the header */
+    color: #333;
+    /* Darker color for the header */
+}
+
+.review-button {
+    padding: 10px 20px;
+    /* Padding for the button */
+    font-size: 1rem;
+    /* Font size for button text */
+    background-color: #3498db;
+    /* Blue background color */
+    color: white;
+    /* White text color */
+    border: none;
+    /* Remove default border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s ease;
+    /* Transition for hover effect */
+}
+
+.review-button:hover {
+    background-color: #2980b9;
+    /* Darker blue on hover */
+}
+
+.all-spots-container {
+    display: grid;
+    /* Grid layout for spots */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* Responsive grid columns */
+    gap: 20px;
+    /* Space between grid items */
+}
+
+.spot-card {
+    background-color: white;
+    /* White background for each spot card */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    overflow: hidden;
+    /* Prevent overflow */
+    transition: transform 0.2s;
+    /* Transition for scale effect */
+}
+
+.spot-card:hover {
+    transform: scale(1.02);
+    /* Slight zoom effect on hover */
+}
+
+.spot-link {
+    text-decoration: none;
+    /* Remove underline from links */
+    color: inherit;
+    /* Inherit color from parent */
+}
+
+.spot-image {
+    width: 100%;
+    /* Full width image */
+    height: 200px;
+    /* Fixed height for images */
+    object-fit: cover;
+    /* Cover the area without distortion */
+}
+
+.spot-info {
+    padding: 10px;
+    /* Padding for spot info */
+}
+
+.spot-info div {
+    margin: 5px 0;
+    /* Space between info lines */
+    font-size: 1rem;
+    /* Font size for info text */
+    color: #555;
+    /* Gray color for text */
+}
+
+.spot-price {
+    font-weight: bold;
+    /* Bold font for price */
+    color: #333;
+    /* Darker color for price */
+    padding: 10px;
+    /* Padding for price */
+}
+
+.update-delete-buttons-container {
+    display: flex;
+    /* Flexbox for button layout */
+    justify-content: space-between;
+    /* Space between buttons */
+    padding: 10px;
+    /* Padding for button container */
+}
+
+.delete-review-modal-button {
+    padding: 10px;
+    /* Padding for delete button */
+    background-color: #e74c3c;
+    /* Red background color */
+    color: white;
+    /* White text color */
+    border: none;
+    /* Remove default border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    transition: background-color 0.3s ease;
+    /* Transition for hover effect */
+}
+
+.delete-review-modal-button:hover {
+    background-color: #c0392b;
+    /* Darker red on hover */
+}
+
+@media (max-width: 600px) {
+    .manage-spots-page-container {
+        padding: 15px;
+        /* Adjust padding for smaller screens */
+    }
+
+    .manage-spots-header h1 {
+        font-size: 1.5rem;
+        /* Adjust heading size for smaller screens */
+    }
+
+    .review-button {
+        font-size: 0.9rem;
+        /* Adjust button font size */
+    }
+
+    .spot-info div {
+        font-size: 0.9rem;
+        /* Adjust info font size */
+    }
+
+    .spot-price {
+        font-size: 1rem;
+        /* Adjust price font size */
+    }
+}

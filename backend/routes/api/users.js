@@ -1,4 +1,3 @@
-// backend/routes/api/users.js
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
@@ -44,7 +43,7 @@ router.post(
   validateSignup,
   validateUserExists,
   async (req, res) => {
-    const { email, password, username, firstName, lastName } = req.body;
+    const { email, firstName, lastName, password, username } = req.body;
     const hashedPassword = bcrypt.hashSync(password);
 
     const user = await User.create({ email, username, firstName, lastName, hashedPassword });

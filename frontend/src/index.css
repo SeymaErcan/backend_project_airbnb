@@ -1,1 +1,4 @@
 /* TODO: Add sitewide styles */
+#root {
+    background-image: url('/images/background.jpg');
+}

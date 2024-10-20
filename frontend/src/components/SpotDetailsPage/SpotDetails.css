@@ -1,0 +1,167 @@
+.spot-details-container {
+    max-width: 800px;
+    /* Set a maximum width for the container */
+    margin: 0 auto;
+    /* Center the container */
+    padding: 20px;
+    /* Add padding */
+    font-family: Arial, sans-serif;
+    /* Set a base font */
+}
+
+h2,
+h3 {
+    margin: 10px 0;
+    /* Add margin above and below headings */
+    color: #333;
+    /* Set heading color */
+}
+
+.spot-images-container {
+    display: flex;
+    /* Use flexbox for image layout */
+    flex-direction: column;
+    /* Stack images vertically */
+    margin-bottom: 20px;
+    /* Add margin below the image container */
+}
+
+.preview-image img {
+    width: 100%;
+    /* Make the preview image full width */
+    border-radius: 8px;
+    /* Add rounded corners */
+}
+
+.smaller-images {
+    display: flex;
+    /* Use flexbox for smaller images */
+    gap: 10px;
+    /* Space between smaller images */
+}
+
+.smaller-images img {
+    width: 100px;
+    /* Set a fixed width for smaller images */
+    height: auto;
+    /* Maintain aspect ratio */
+    border-radius: 8px;
+    /* Add rounded corners */
+}
+
+.description-price-container {
+    display: flex;
+    /* Use flexbox for description and price layout */
+    justify-content: space-between;
+    /* Space between elements */
+    margin-bottom: 20px;
+    /* Add margin below the container */
+}
+
+.description-container {
+    flex: 2;
+    /* Give more space to the description */
+}
+
+.price-container {
+    flex: 1;
+    /* Give less space to the price */
+    text-align: right;
+    /* Align text to the right */
+}
+
+.price-details h3 {
+    color: #e74c3c;
+    /* Set color for price */
+}
+
+#reserve-button {
+    background-color: #28a745;
+    /* Green background for button */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove border */
+    border-radius: 5px;
+    /* Rounded corners */
+    padding: 10px 20px;
+    /* Add padding */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    font-size: 16px;
+    /* Increase font size */
+}
+
+#reserve-button:hover {
+    background-color: #218838;
+    /* Darken button on hover */
+}
+
+.reviews-outer-container {
+    margin-top: 20px;
+    /* Add margin above reviews section */
+}
+
+.reviews-inner-container {
+    margin-top: 10px;
+    /* Add margin above inner reviews container */
+}
+
+.single-review {
+    border: 1px solid #ddd;
+    /* Border around each review */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 15px;
+    /* Add padding */
+    margin-bottom: 15px;
+    /* Space between reviews */
+    background-color: #f9f9f9;
+    /* Light background */
+}
+
+.reviewer-name {
+    font-weight: bold;
+    /* Bold for reviewer name */
+}
+
+.review-date {
+    font-size: 0.9em;
+    /* Smaller font for date */
+    color: #888;
+    /* Gray color for date */
+}
+
+.review-text {
+    margin: 10px 0;
+    /* Margin above and below review text */
+}
+
+.delete-review-modal-button {
+    background-color: #dc3545;
+    /* Red background for delete button */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove border */
+    border-radius: 5px;
+    /* Rounded corners */
+    padding: 5px 10px;
+    /* Add padding */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+.delete-review-modal-button:hover {
+    background-color: #c82333;
+    /* Darken button on hover */
+}
+
+.loading-text {
+    text-align: center;
+    /* Center loading text */
+    font-size: 24px;
+    /* Larger font size for loading text */
+    color: #555;
+    /* Color for loading text */
+}
