@@ -2,20 +2,20 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from '../../context/Modal';
 import { FaStar } from 'react-icons/fa';
-import './CreateReviewFormModal.css';
+import './CreateReviewForm.css'
 import { createReview } from "../../store/review";
 
 const CreateReviewFormModal = () => {
     const dispatch = useDispatch();
-    const currSpot = useSelector((state) => state.spot);
-    const currUser = useSelector((state) => state.session.user);
+    const currSpot = useSelector((state) => state.spot)
+    // const currUser = useSelector((state) => state.session.user);
     const [review, setReview] = useState("");
     const [numStars, setNumStars] = useState(null);
     const [hover, setHover] = useState(null);
     const [errors, setErrors] = useState({});
     const { closeModal } = useModal();
 
-    if (currUser) return <Navigate to='/' replace={true} />;
+    // if(currUser) return <Navigate to='/' replace={true} />
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,7 +24,7 @@ const CreateReviewFormModal = () => {
         const newReview = {
             review,
             stars: numStars
-        };
+        }
 
         return dispatch(createReview(currSpot.id, newReview))
             .then(closeModal)
@@ -39,10 +39,10 @@ const CreateReviewFormModal = () => {
             <h1 id="heading">How was your stay?</h1>
             <form onSubmit={handleSubmit} className="review-form">
                 <textarea
-                    placeholder="Write your review here."
+                    placeholder="Leave your review here..."
                     className="review-input"
                     type="text"
-                    rows="5"
+                    rows='7'
                     value={review}
                     onChange={(e) => setReview(e.target.value)}
                     required
@@ -50,28 +50,32 @@ const CreateReviewFormModal = () => {
                 {errors.review && <p>{errors.review}</p>}
                 <div className="stars-container">
                     {[...Array(5)].map((star, idx) => {
-                        const currStars = idx + 1;
+                        const currStars = idx + 1
                         return (
                             <label key={idx}>
                                 <input
                                     type="radio"
                                     name="rating"
+                                    value={currStars}
                                     onClick={() => setNumStars(currStars)}
                                     required
                                 />
                                 <FaStar
                                     size={20}
                                     className="star"
-                                    color={currStars <= (hover || numStars) ? "green" : "grey"}
+                                    color={currStars <= (hover || numStars) ? "yellow" : "grey"}
                                     onMouseEnter={() => setHover(currStars)}
                                     onMouseLeave={() => setHover(null)}
+                                    style={{
+                                        outline: 'black'
+                                    }}
                                 />
                             </label>
-                        );
+                        )
                     })}
                 </div>
                 {errors.stars && <p>{errors.stars}</p>}
-                <button type="submit" className="submit-review-button">Submit your review</button>
+                <button type="submit" className="submit-review-button">Submit Your Review</button>
             </form>
         </div>
     );

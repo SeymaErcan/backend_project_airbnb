@@ -5,16 +5,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { MdStarRate } from "react-icons/md";
 import './ManageSpots.css'
 import OpenModalButton from '../OpenModalButton';
-import UpdateSpotButton from "./UpdateSpotButton"
+import UpdateSpotButton from "./UpdateSpotButton";
 import DeleteSpotModal from "./DeleteSpotModal";
 
 const ManageSpotsPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const currUserSpots = useSelector(state => state.spot.Spots);
+
+    // Safely access state.spot.Spots, defaulting to an empty array if undefined
+    const currUserSpots = useSelector(state => state.spot?.Spots || []);
 
     console.log('user spots', currUserSpots);
 
+    // Fetch spots when the component is first rendered
     useEffect(() => {
         dispatch(getCurrentUserSpots());
     }, [dispatch]);
@@ -24,11 +27,13 @@ const ManageSpotsPage = () => {
         return navigate('/spots/new');
     }
 
-    if (!currUserSpots) {
+    // Show a loading message if spots are still being fetched
+    if (!currUserSpots.length) {
         return (
             <h1>Loading...</h1>
-        )
+        );
     }
+
     return (
         <div className="manage-spots-page-container">
             <div className="manage-spots-header">
@@ -42,7 +47,7 @@ const ManageSpotsPage = () => {
                             <img src={previewImage} alt="spot-image" className="spot-image" />
                             <div className="spot-info">
                                 <div>{city}, {state}</div>
-                                <div><MdStarRate />{avgRating ? avgRating.toFixed(2) : avgRating}</div>
+                                <div><MdStarRate />{avgRating ? avgRating.toFixed(2) : "No rating"}</div>
                             </div>
                             <div className="spot-price">${price} night</div>
                         </NavLink>
@@ -59,7 +64,7 @@ const ManageSpotsPage = () => {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default ManageSpotsPage;

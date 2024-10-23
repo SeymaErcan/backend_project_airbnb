@@ -27,11 +27,11 @@ function EditSpotFormPage() {
     const [name, setName] = useState(currSpot.name);
     const [description, setDescription] = useState(currSpot.description);
     const [price, setPrice] = useState(currSpot.price);
-    const [previewImgUrl, setPreviewImgUrl] = useState(currSpot.SpotImages[0].url);
-    const [img1Url, setImg1Url] = useState(currSpot.SpotImages[1].url);
-    const [img2Url, setImg2Url] = useState(currSpot.SpotImages[2].url);
-    const [img3Url, setImg3Url] = useState(currSpot.SpotImages[3].url);
-    const [img4Url, setImg4Url] = useState(currSpot.SpotImages[4].url);
+    //   const [previewImgUrl, setPreviewImgUrl] = useState(currSpot.SpotImages[0].url);
+    //   const [img1Url, setImg1Url] = useState(currSpot.SpotImages[1].url);
+    //   const [img2Url, setImg2Url] = useState(currSpot.SpotImages[2].url);
+    //   const [img3Url, setImg3Url] = useState(currSpot.SpotImages[3].url);
+    //   const [img4Url, setImg4Url] = useState(currSpot.SpotImages[4].url);
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
@@ -48,7 +48,7 @@ function EditSpotFormPage() {
         }
     }, [currSpot]);
 
-    if (sessionUser) return <Navigate to="/spots/new" replace={true} />
+    // if (sessionUser) return <Navigate to="/spots/new" replace={true} />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -66,68 +66,69 @@ function EditSpotFormPage() {
                 description,
                 price
             }
-            //console.log(editedSpot)
+
+            //   console.log(editedSpot)
 
             dispatch(
                 updateSpot(currSpot.id, editedSpot)
             ).then(spot => {
                 navigate(`/spots/${spot.id}`)
             })
-                .then(spot => {
-                    dispatch(postSpotImage({ spotId: spot.id, url: previewImgUrl, preview: true }))
-                    return spot.id
-                })
-                .then((id) => {
-                    dispatch(postSpotImage({ spotId: id, url: img1Url, preview: false }))
-                    return id;
-                })
-                .then((id) => {
-                    dispatch(postSpotImage({ spotId: id, url: img2Url, preview: false }))
-                    return id;
-                })
-                .then((id) => {
-                    dispatch(postSpotImage({ spotId: id, url: img3Url, preview: false }))
-                    return id;
-                })
-                .then((id) => {
-                    dispatch(postSpotImage({ spotId: id, url: img4Url, preview: false }))
-                    navigate(`/spots/${id}`)
-                    return id;
-                })
+                // .then(spot => {
+                //   dispatch(postSpotImage({ spotId: spot.id, url: previewImgUrl, preview: true }))
+                //   return spot.id
+                // })
+                // .then((id) => {
+                //   dispatch(postSpotImage({ spotId: id, url: img1Url, preview: false }))
+                //   return id;
+                // })
+                // .then((id) => {
+                //   dispatch(postSpotImage({ spotId: id, url: img2Url, preview: false }))
+                //   return id;
+                // })
+                // .then((id) => {
+                //   dispatch(postSpotImage({ spotId: id, url: img3Url, preview: false }))
+                //   return id;
+                // })
+                // .then((id) => {
+                //   dispatch(postSpotImage({ spotId: id, url: img4Url, preview: false }))
+                //   navigate(`/spots/${id}`)
+                //   return id;
+                // })
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data?.errors) {
                         setErrors(data.errors);
                     }
-
                 });
         }
     };
+
     return (
         <>
             {isLoaded &&
                 <div className='create-spot-container'>
-                    <h1>Edit your spot</h1>
-                    <h2>Location of your spot</h2>
-                    <h3>The open address of your location will be shared once booked.</h3>
+                    <h1>Update your Spot</h1>
+                    <h2>Where&apos;s your place located?</h2>
+                    <h3>Guests will only get your exact address once they booked a reservation.</h3>
                     <form onSubmit={handleSubmit} className='create-spot-form'>
                         <label>Country
                             <input
-                                placeholder="Country"
                                 className='form-input'
                                 type="text"
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
+                            // required
                             />
                         </label>
                         {errors.country && <p>{errors.country}</p>}
                         <label>Street Address
                             <input
-
                                 className='form-input'
                                 type="text"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
+                            // required
                             />
                         </label>
                         {errors.address && <p>{errors.address}</p>}
@@ -135,8 +136,19 @@ function EditSpotFormPage() {
                             <input
                                 className='form-input'
                                 type="text"
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}
+                            // required
+                            />
+                        </label>
+                        {errors.city && <p>{errors.city}</p>}
+                        <label>State
+                            <input
+                                className='form-input'
+                                type="text"
                                 value={state}
                                 onChange={(e) => setState(e.target.value)}
+                            // required
                             />
                         </label>
                         {errors.state && <p>{errors.state}</p>}
@@ -146,48 +158,52 @@ function EditSpotFormPage() {
                                 type="text"
                                 value={lat}
                                 onChange={(e) => setLat(e.target.value)}
+                            // required
                             />
                         </label>
                         {errors.lat && <p>{errors.lat}</p>}
-                        <label>Longtitude
+                        <label>Longitude
                             <input
                                 className='form-input'
                                 type="text"
                                 value={lng}
                                 onChange={(e) => setLng(e.target.value)}
+                            // required
                             />
                         </label>
                         {errors.lng && <p>{errors.lng}</p>}
 
                         <hr />
 
-                        <h2>Describe your place</h2>
-                        <h3>Tell what makes your place special</h3>
+                        <h2>Describe your place to guests</h2>
+                        <h3>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</h3>
                         <textarea
-                            placeholder='Minimum 30 characters'
                             className='form-input'
-                            type='text'
-                            rows='8'
+                            type="text"
+                            rows='7'
+                            value={description}
                             onChange={(e) => setDescription(e.target.value)}
+                        // required
                         />
                         {errors.description && <p>{errors.description}</p>}
 
                         <hr />
 
-                        <h2>The name of your spot</h2>
-                        <h3>The name of your spot makes your spot stands out</h3>
+                        <h2>Create a title for your spot</h2>
+                        <h3>Catch guests&apos; attention with a spot title that highlights what makes your place special.</h3>
                         <input
                             className='form-input'
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                        // required
                         />
                         {errors.name && <p>{errors.name}</p>}
 
                         <hr />
 
-                        <h2>Base price for your spot</h2>
-                        <h3>Right pricing helps your spot stands out</h3>
+                        <h2>Set a base price for your spot</h2>
+                        <h3>Competitive pricing can help your listing stand out and rank higher in search results.</h3>
                         <label style={{
                             display: 'flex',
                             alignItems: 'center',
@@ -200,51 +216,52 @@ function EditSpotFormPage() {
                                 style={{
                                     marginLeft: '5px'
                                 }}
+                            // required
                             />
                         </label>
-                        {errors.price && <p>{errors.rpice}</p>}
+                        {errors.price && <p>{errors.price}</p>}
 
                         <hr />
 
-                        <h2>Liven up your spot with photos</h2>
-                        <h3>Submit a link to at least one photo to publish your spot.</h3>
-                        <div className='image-url-input'>
-                            <input
-                                className='form-input'
-                                type="url"
-                                value={previewImgUrl}
-                                onChange={(e) => setPreviewImgUrl(e.target.value)}
-                            />
-                            <input
-                                placeholder='Image URL'
-                                className='form-input'
-                                type="url"
-                                value={img1Url}
-                                onChange={(e) => setImg1Url(e.target.value)}
-                            />
-                            <input
-                                placeholder='Image URL'
-                                className='form-input'
-                                type="url"
-                                value={img2Url}
-                                onChange={(e) => setImg2Url(e.target.value)}
-                            />
-                            <input
-                                placeholder='Image URL'
-                                className='form-input'
-                                type="url"
-                                value={img3Url}
-                                onChange={(e) => setImg3Url(e.target.value)}
-                            />
-                            <input
-                                placeholder='Image URL'
-                                className='form-input'
-                                type="url"
-                                value={img4Url}
-                                onChange={(e) => setImg4Url(e.target.value)}
-                            />
-                        </div>
-                        <hr />
+                        {/* <h2>Liven up your spot with photos</h2>
+        <h3>Submit a link to at least one photo to publish your spot.</h3>
+        <div className='image-url-input'>
+          <input
+            className='form-input'
+            type="url"
+            value={previewImgUrl}
+            onChange={(e) => setPreviewImgUrl(e.target.value)}
+          />
+          <input
+            placeholder='Image URL'
+            className='form-input'
+            type="url"
+            value={img1Url}
+            onChange={(e) => setImg1Url(e.target.value)}
+          />
+          <input
+            placeholder='Image URL'
+            className='form-input'
+            type="url"
+            value={img2Url}
+            onChange={(e) => setImg2Url(e.target.value)}
+          />
+          <input
+            placeholder='Image URL'
+            className='form-input'
+            type="url"
+            value={img3Url}
+            onChange={(e) => setImg3Url(e.target.value)}
+          />
+          <input
+            placeholder='Image URL'
+            className='form-input'
+            type="url"
+            value={img4Url}
+            onChange={(e) => setImg4Url(e.target.value)}
+          />
+        </div>
+        <hr /> */}
                         <div className='create-spot-button-section'>
                             <button type="submit" id='create-spot-button'>Update Spot</button>
                         </div>

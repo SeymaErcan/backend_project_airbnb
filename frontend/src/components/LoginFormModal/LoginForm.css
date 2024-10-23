@@ -42,7 +42,8 @@
     background-color: rgb(229, 239, 244)
 }
 
-.login-button {
+.login-button,
+.signup-button {
     background-color: rgb(255, 60, 93);
     color: white;
     width: 103%;
