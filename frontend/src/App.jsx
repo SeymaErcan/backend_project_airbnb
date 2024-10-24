@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { useDispatch } from 'react-redux'; // Correctly import useDispatch
 import Homepage from './components/Homepage/Homepage';

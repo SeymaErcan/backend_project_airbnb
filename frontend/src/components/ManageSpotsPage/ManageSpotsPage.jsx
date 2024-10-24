@@ -12,22 +12,22 @@ const ManageSpotsPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // Safely access state.spot.Spots, defaulting to an empty array if undefined
-    const currUserSpots = useSelector(state => state.spot?.Spots || []);
+    // const currUserSpots = useSelector(state => state.spot?.Spots || []);
+    const currUserSpots = useSelector(state => state.spot.Spots);
 
-    console.log('user spots', currUserSpots);
-
-    // Fetch spots when the component is first rendered
     useEffect(() => {
         dispatch(getCurrentUserSpots());
+
     }, [dispatch]);
+
+
+    console.log('Current user spots:', currUserSpots);
 
     const handleClick = async (e) => {
         e.preventDefault();
         return navigate('/spots/new');
     }
 
-    // Show a loading message if spots are still being fetched
     if (!currUserSpots.length) {
         return (
             <h1>Loading...</h1>

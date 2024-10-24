@@ -76,6 +76,7 @@ export const getSpots = () => async (dispatch) => {
         dispatch(loadSpots(data.Spots));
         return response;
     }
+    console.log(response)
 }
 
 export const getCurrentUserSpots = () => async (dispatch) => {
@@ -84,8 +85,10 @@ export const getCurrentUserSpots = () => async (dispatch) => {
     if (response.ok) {
         const data = await response.json();
         dispatch(loadCurrentUserSpots(data.Spots));
+        console.log("LOOK HERE >>", response)
         return response;
     }
+
 }
 
 export const createSpot = (spot) => async (dispatch) => {
@@ -100,6 +103,7 @@ export const createSpot = (spot) => async (dispatch) => {
     if (res.ok) {
         const data = await res.json();
         dispatch(addSpot(data));
+        dispatch(getCurrentUserSpots());
         return data;
     }
 }
@@ -167,43 +171,62 @@ export const getReviewsBySpotId = (spotId) => async (dispatch) => {
 
 
 // reducer
-const initialState = {};
+// reducer
+const initialState = {
+    Spots: {},
+    Reviews: {},
+    Details: {}
+};
 
 const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
-            const newState = { ...state, Spots: action.spots };//could turn this into an object with each spot id as the key so lookup time is faster
+            const newState = { ...state };
+            action.spots.forEach(spot => {
+                newState.Spots[spot.id] = spot;
+            });
+            console.log(newState)
             return newState;
         }
         case LOAD_CURRENT_USER_SPOTS: {
-            const newState = { ...state, Spots: action.spots };//could turn this into an object with each spot id as the key so lookup time is faster
+            console.log("Before LOAD_DETAILS", state);
+            const newState = { ...state };
+            action.spots.forEach(spot => {
+                newState.Spots[spot.id] = spot;
+                console.log(newState)
+            });
+            console.log(newState)
             return newState;
+
         }
         case ADD_SPOT: {
-            const newState = { ...state, ...action.spot };
+            const newState = { ...state, Spots: { ...state.Spots, [action.spot.id]: action.spot } };
             return newState;
         }
         case EDIT_SPOT: {
-            const newState = { ...state, ...action.spot };
+            const newState = {
+                ...state,
+                Spots: { ...state.Spots, [action.spot.id]: action.spot }
+            };
             return newState;
         }
         case REMOVE_SPOT: {
-            const deletedSpot = action.spotId;
-            const newState = { ...state, deletedSpot };
-            delete newState.deletedSpot;
-            return newState //i dont think this is going to work
+            const newState = { ...state };
+            delete newState.Spots[action.spotId];
+            return newState;
         }
         case LOAD_DETAILS: {
-            const newState = { ...state, ...action.spotId };//dont think this will do it but lets see
-            return newState;
+            return { ...state, Details: { ...state.Details, [action.spotId]: action.spot } };
+
         }
         case LOAD_REVIEWS: {
-            const newState = { ...state, Reviews: action.spotId };
-            return newState;
+            return { ...state, Reviews: { ...state.Reviews, [action.spotId]: action.reviews } };
         }
         default:
             return state;
     }
+
+
 };
 
 export default spotReducer;

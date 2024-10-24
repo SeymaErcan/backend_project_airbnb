@@ -1,10 +1,8 @@
-// frontend/src/components/Navigation/ProfileButton.jsx
-
+import './Navigation.css';
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
-import './Navigation.css'
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -13,9 +11,8 @@ function ProfileButton({ user }) {
 
     const toggleMenu = (e) => {
         e.stopPropagation(); // Keep click from bubbling up to document and triggering closeMenu
-        // if (!showMenu) setShowMenu(true);
         setShowMenu(!showMenu);
-    };
+    }
 
     useEffect(() => {
         if (!showMenu) return;
@@ -32,6 +29,7 @@ function ProfileButton({ user }) {
     }, [showMenu]);
 
     const handleLogout = (e) => {
+        e.preventDefault();
         dispatch(sessionActions.logout());
     };
 
